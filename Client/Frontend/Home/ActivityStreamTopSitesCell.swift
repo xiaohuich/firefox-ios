@@ -181,7 +181,7 @@ class ASHorizontalScrollCell: UITableViewCell {
         collectionView.register(TopSiteItemCell.self, forCellWithReuseIdentifier: ASHorizontalScrollCellUX.TopSiteCellIdentifier)
         collectionView.backgroundColor = UIColor.clear
         collectionView.showsHorizontalScrollIndicator = false
-	 collectionView.isPagingEnabled = true
+        collectionView.isPagingEnabled = true
         return collectionView
     }()
 
@@ -245,11 +245,12 @@ class ASHorizontalScrollCell: UITableViewCell {
             make.centerX.equalTo(self.snp.centerX)
         }
     }
-
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         let layout = collectionView.collectionViewLayout as! HorizontalFlowLayout
 
+        print(layout.cellCount)
         gradientBG.frame = self.contentView.bounds
         if gradientBG.superlayer == nil {
             self.contentView.layer.insertSublayer(gradientBG, at: 0)
@@ -293,7 +294,7 @@ class ASHorizontalScrollCell: UITableViewCell {
 
 class HorizontalFlowLayout: UICollectionViewLayout {
     var itemSize = CGSize.zero
-    fileprivate var cellCount = 0
+    var cellCount = 0
     fileprivate var boundsSize = CGSize.zero
     fileprivate var insets = UIEdgeInsets.zero
     fileprivate let minimumInsets: CGFloat = 20

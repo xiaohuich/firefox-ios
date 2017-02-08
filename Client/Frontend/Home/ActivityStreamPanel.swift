@@ -290,7 +290,9 @@ extension ActivityStreamPanel {
     }
 
     fileprivate func reloadAll() {
-        self.tableView.reloadData()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
 
     fileprivate func invalidateHighlights() -> Success {
@@ -345,6 +347,7 @@ extension ActivityStreamPanel {
             guard result.isSuccess else { return }
             self.invalidateTopSites().uponQueue(DispatchQueue.main) { _ in
                 self.reloadAll()
+                print("asfdasfa")
             }
         }
     }
