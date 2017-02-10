@@ -347,7 +347,6 @@ extension ActivityStreamPanel {
             guard result.isSuccess else { return }
             self.invalidateTopSites().uponQueue(DispatchQueue.main) { _ in
                 self.reloadAll()
-                print("asfdasfa")
             }
         }
     }
