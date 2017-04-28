@@ -237,7 +237,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIViewControllerRestorati
 
         #if BUDDYBUILD
             log.debug("Setting up BuddyBuild SDK")
-            BuddyBuildSDK.setup()
+//            BuddyBuildSDK.setup()
         #endif
         
         log.debug("Making window key and visible…")

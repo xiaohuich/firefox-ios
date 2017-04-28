@@ -3291,6 +3291,7 @@
 				E677E8841EB3CCD8008C63EB /* Fennec.entitlements */,
 			);
 			name = Entitlements;
+			path = Client;
 			sourceTree = "<group>";
 		};
 		E68E7ADF1CAC209000FDCA76 /* PasscodeConfiguration */ = {
@@ -3431,6 +3432,7 @@
 				F84B21C01A090F8100AAB793 /* Client */,
 				F84B21D61A090F8100AAB793 /* ClientTests */,
 				E60961841B62B7E100DD640F /* Configuration */,
+				E677E8821EB3CC95008C63EB /* Entitlements */,
 				F8708D1E1A0970990051AB07 /* Extensions */,
 				7B604FC11C496005006EEEC3 /* Frameworks */,
 				F84B21BF1A090F8100AAB793 /* Products */,
@@ -3490,7 +3492,6 @@
 		F84B21C01A090F8100AAB793 /* Client */ = {
 			isa = PBXGroup;
 			children = (
-				E677E8821EB3CC95008C63EB /* Entitlements */,
 				7B2142FC1E5E055000CDD3FC /* InfoPlist.strings */,
 				F84B22431A09165600AAB793 /* Info.plist */,
 				F84B21EB1A0910F600AAB793 /* Assets */,
