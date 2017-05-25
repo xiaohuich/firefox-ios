@@ -11,6 +11,7 @@ import WebImage
 import SwiftKeychainWrapper
 import LocalAuthentication
 import Telemetry
+import SwiftRouter
 
 private let log = Logger.browserLogger
 
@@ -127,13 +128,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIViewControllerRestorati
         navigationController.delegate = self
         navigationController.isNavigationBarHidden = true
 
-        if AppConstants.MOZ_STATUS_BAR_NOTIFICATION {
-            rootViewController = NotificationRootViewController(rootViewController: navigationController)
-        } else {
+//        if AppConstants.MOZ_STATUS_BAR_NOTIFICATION {
+//            rootViewController = NotificationRootViewController(rootViewController: navigationController)
+//        } else {
             rootViewController = navigationController
-        }
+//        }
 
         self.window!.rootViewController = rootViewController
+        
+        log.debug("Initializing app router...")
+        setupAppRouteHandling()
 
         log.debug("Adding observers…")
         NotificationCenter.default.addObserver(forName: NSNotification.Name.FSReadingListAddReadingListItem, object: nil, queue: nil) { (notification) -> Void in
@@ -484,6 +488,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIViewControllerRestorati
             try server.start()
         } catch let err as NSError {
             log.error("Unable to start WebServer \(err)")
+        }
+    }
+
+    fileprivate func setupAppRouteHandling() {
+        let router = Router.shared
+        let rootNav = rootViewController as! UINavigationController
+
+        router.map("/navigate/settings/:page") { params in
+            guard let page = params?["page"] as? String else {
+                return false
+            }
+
+            assert(Thread.isMainThread, "Opening settings requires being invoked on the main thread")
+
+            let settingsTableViewController = AppSettingsTableViewController()
+            settingsTableViewController.profile = self.profile
+            settingsTableViewController.tabManager = self.tabManager
+            settingsTableViewController.settingsDelegate = self.browserViewController
+
+            let controller = SettingsNavigationController(rootViewController: settingsTableViewController)
+            controller.popoverDelegate = self.browserViewController
+            controller.modalPresentationStyle = UIModalPresentationStyle.formSheet
+
+            rootNav.present(controller, animated: true, completion: nil)
+            return true
         }
     }
 

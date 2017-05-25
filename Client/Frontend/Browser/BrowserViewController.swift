@@ -18,6 +18,7 @@ import WebImage
 import SwiftyJSON
 import Telemetry
 import KSCrash
+import SwiftRouter
 
 private let log = Logger.browserLogger
 
@@ -609,6 +610,9 @@ class BrowserViewController: UIViewController {
             show(buttonToast: toast, afterWaiting: ButtonToastUX.ToastDelay)
         }
         showQueuedAlertIfAvailable()
+
+        let router = Router.shared
+        router.routeURL("/navigate/settings/logins")
     }
 
     fileprivate func shouldShowWhatsNewTab() -> Bool {
